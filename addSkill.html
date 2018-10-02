@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script language="javascript">
+var a = [[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]]]
+var b = [[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]]]
+function wantSkill(ijk)
+{
+    var bestSkill = myform.bestskill.value
+    bestSkill=[Number(bestSkill[0]),Number(bestSkill[1]),Number(bestSkill[2])]
+    if (ijk[0]>=bestSkill[0]&&ijk[1]>=bestSkill[1]&&ijk[2]>=bestSkill[2])
+    {
+        return true
+    }
+    else
+    {
+        return false
+    }
+
+}
+
+function zhengwei(b,ijk)
+{
+    var maxSkill = myform.maxskill.value  
+    maxSkill=[Number(maxSkill[0]),Number(maxSkill[1]),Number(maxSkill[2])]
+    var ret=0
+    var canAddSkill=0
+    var nijk=[0,0,0]
+    if (wantSkill(ijk))
+    {
+        return ret
+    }
+    for (var t=0; t<3; t++)
+    {
+        if (ijk[t]>=maxSkill[t])
+        {
+            continue
+        }
+        canAddSkill++
+        for (var tt=0;tt<3;tt++)
+        {
+            nijk[tt]= (t == tt) ? ijk[tt]+1 : ijk[tt]
+        }
+        ret = ret + b[nijk[0]][nijk[1]][nijk[2]]   
+    }
+    ret=ret/canAddSkill
+    ret++
+
+    return ret
+}
+
+function fanwei(b,ijk)
+{
+    var ret=0
+    var total=ijk[0]+ijk[1]+ijk[2]
+    var maxSkill = myform.maxskill.value  
+    maxSkill=[Number(maxSkill[0]),Number(maxSkill[1]),Number(maxSkill[2])]
+    if (wantSkill(ijk)||total>=maxSkill[0]+maxSkill[1]+maxSkill[2])
+    {
+        return ret
+    }
+    total=total-2
+    temp1=[[1,1,1]]
+    temp2=[]
+    for (var i=0;i<total;i++)
+    {
+        while (temp1.length>0)
+        {
+            tempijk=temp1.pop()
+            for (var t=0;t<3;t++)
+            {
+                if (tempijk[t]>=maxSkill[t])
+                {
+                    continue
+                }
+                var nijk=[0,0,0]
+                for (var tt=0;tt<3;tt++)
+                {
+                    nijk[tt]= (t == tt) ? tempijk[tt]+1 : tempijk[tt]
+                }
+                temp2.push(nijk)
+            }
+        }
+        temp1=temp2
+        temp2=[]
+    }
+    for (var i=0;i<temp1.length;i++)
+    {
+        ret=ret+b[temp1[i][0]][temp1[i][1]][temp1[i][2]]
+    }
+    if (temp1.length==0)
+    {
+        ret=0
+    }
+    else
+    {
+        ret=ret/temp1.length
+    }
+    ret++
+    return ret
+}
+
+function cb(n)
+{
+    var ret=[]
+    for (var i=1;i<n;i++)
+    {
+        for (var j=i+1;j<n+1;j++)
+        {
+            ret.push([i,j])
+        }
+    }
+    return ret
+}
+
+function main()
+{
+    var maxSkill = myform.maxskill.value  
+    maxSkill=[Number(maxSkill[0]),Number(maxSkill[1]),Number(maxSkill[2])]
+    var nowSkill = myform.nowskill.value
+    nowSkill=[Number(nowSkill[0]),Number(nowSkill[1]),Number(nowSkill[2])]
+    var bestSkill = myform.bestskill.value
+    bestSkill=[Number(bestSkill[0]),Number(bestSkill[1]),Number(bestSkill[2])]
+
+    for (var total = maxSkill[0]+maxSkill[1]+maxSkill[2];total>2;total--)
+    {
+        all=cb(total)
+        var ijk=[0,0,0]
+        for (var t=0;t<all.length;t++)
+        {
+            ijk[0]=all[t][0]
+            ijk[1]=all[t][1]-all[t][0]
+            ijk[2]=total-all[t][1]
+            if (ijk[0]>maxSkill[0] || ijk[1]>maxSkill[1] || ijk[2]>maxSkill[2])
+            {
+                continue
+            }
+            ret1=zhengwei(b,ijk)
+            ret2=fanwei(b,ijk)
+            if (ret1<ret2)
+            {
+                a[ijk[0]][ijk[1]][ijk[2]]="正喂"
+                b[ijk[0]][ijk[1]][ijk[2]]=ret1
+            }
+            else if (ret1>ret2)
+            {
+                a[ijk[0]][ijk[1]][ijk[2]]="反喂"
+                b[ijk[0]][ijk[1]][ijk[2]]=ret2
+            }
+            else
+            {
+                b[ijk[0]][ijk[1]][ijk[2]]=ret1
+            }
+        }
+    }
+    var toWrite=a[nowSkill[0]][nowSkill[1]][nowSkill[2]]
+    if (toWrite==0)
+    {
+        toWrite="正反喂结果相同"
+    }
+    document.getElementById("demo").innerHTML = toWrite
+}
+
+</script>
+</head>
+
+<body>
+<form name="myform">  
+满技能: <br/>
+<input id="1" type="text" name="maxskill" value="555" />
+<br/><br/>
+最优技能：<br/>
+<input type="text" name="bestskill" value="151" />
+<br/><br/>
+当前技能：<br/>
+<input type="text" name="nowskill" value="333" />
+<br/><br/>
+</form>
+<button type="button" onclick="main()">计算</button>
+<br/><br/>
+正反喂策略: <br/>
+<p id="demo">结果显示处</p>
+<br/><br/>
+<a href="./addSkill.py">python3版本源码</a>
+<br/><br/>
+<a href="./index.html">返回主页</a>
+</body>
+</html>
