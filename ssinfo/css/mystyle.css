@@ -1,0 +1,20 @@
+h3{margin-top:30px}
+
+#ss_list{margin:0 auto;overflow:hidden;padding:20px 0 0;width:644px;list-style-type:none}
+#ss_list li{color:#0080b9;float:left;height:110px;text-align:center;width:92px;}
+#ss_list .ss{}
+#ss_list .ss:hover img{border:1px solid #000000;background:#007ab1;}
+#ss_list .ss img{width:78px;height:78px;padding:1px;border:1px solid #000000;}
+#ss_list .ss_name{height:22px;line-height:22px;}
+#ss_list .ss_search_text{display:none;}
+.tooltip {display: none;}
+.ss_tooltip {position: absolute;top: 50px;left: 50%;border:1px solid #007ab1;color:#addbef;width: 283px;height: 168px;line-height:22px;padding: 20px;z-index: 100;text-align: left;background:#000000 url(images/tipsbg.jpg) left top no-repeat; -moz-box-shadow: 0 0 15px #000; -webkit-box-shadow: 0 0 15px #000; -webkit-transition: all 0.1s ease-out;}
+.ss_tooltip h2{font-size:14px;font-weight:bold;}
+.ss_tooltip p {clear: left;}
+.ss_tooltip img {float: left;margin-right: 5px;margin-bottom: 5px;background:#000000;border:1px solid #007ab1;height:60px;width:60px;}
+.ss_tooltip_footer {position:relative;}
+.ss_tooltip_tags {color: #e0a119;font-family:Tahoma;font-size: 12px;line-height:20px;}
+
+.wrapper{display:flex;}
+.data-main{margin-left:20px;}
+.data-main .hero-list{margin-top:0px;}

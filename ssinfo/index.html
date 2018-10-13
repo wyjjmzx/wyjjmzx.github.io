@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/mystyle.css">
+<title>机制信息 - 午夜的主页</title>
+<script type="text/javascript"> 
+function run()
+{
+    var obj=document.getElementsByName('rareness')
+    for (var i=0;i<obj.length;i++)
+    {
+        if (obj[i].checked)
+        {
+            var tag=obj[i].value
+        }
+    }
+    var tags=new Array('ssr_tag','sr_tag','r_tag','n_tag','other_tag')
+    for (j in tags)
+    {
+        var a=document.getElementsByClassName(tags[j])
+        for (var i=0;i<a.length;i++)
+        {
+            if (tag==tags[j]||tag=="all")
+            {
+                a[i].style.display='block'
+            }
+            else
+            {
+                a[i].style.display='none'
+            }
+        }    
+    }
+}
+</script> 
+</head>
+<body>
+<h4>简介</h4>
+<p>对阴阳师相关机制的汇总</p>
+<h4>信息查询</h4>
+<div class="wrapper">
+    <div class="data-aside">
+        <h4>筛选</h4>
+        <div id="hero_filters" class="filtersbox">
+            <label><input class="filter"  name="rareness" type="radio" value="ssr_tag" onclick=run()>SSR</label><br />		
+            <label><input class="filter"  name="rareness" type="radio" value="sr_tag" onclick=run()>SR</label><br />
+            <label><input class="filter" name="rareness" type="radio" value="r_tag" onclick=run()>R</label><br />
+            <label><input class="filter"  name="rareness" type="radio" value="n_tag" onclick=run()>N</label><br />
+            <label><input class="filter"  name="rareness" type="radio" value="other_tag" onclick=run()>其他</label><br />
+            <label><input id="show_all_filter" name="rareness" type="radio" value="all" checked onclick=run()>全部</label>
+        </div> 
+    </div>
+
+    <div class="data-main">
+        <div class="hero-list">
+            <div class="mod-pic">
+                <div class="mod-pic-hd">
+                    <h4>列表</h4>
+                </div>
+                <div class="mod-pic-bd">
+                    <ul id="ss_list">
+                        
+                        <li class="ssr_tag" style="display:block;">
+                            <a target="_blank" href="ydj.html" class="ss"><img class="ss_icon" src="../img/269.png" /></a>
+                            <div class="ss_name" >妖刀姬</div>
+                        </li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>				
+        </div>
+            
+    </div>
+</div>
+<br/><br/>
+<a href="../index.html">返回主页</a>
+</body>
+</html>
