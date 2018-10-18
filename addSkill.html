@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>技能反喂 - 午夜的主页</title>
+<title>技能反喂 - 午夜的小站</title>
 <script language="javascript">
 var a = [[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]]]
 var b = [[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]],[[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]]]
@@ -61,13 +61,26 @@ function fanwei(b,ijk)
         return ret
     }
     total=total-2
-    temp1=[[1,1,1]]
-    temp2=[]
-    for (var i=0;i<total;i++)
+    var temp1=[[1,1,1]]
+    var ttemp1=["111"]
+    var prob1=[1]
+    var temp2=[]
+    var ttemp2=[]
+    var prob2=[]
+    for (var ddd=0;ddd<total;ddd++)
     {
-        while (temp1.length>0)
-        {
-            tempijk=temp1.pop()
+    for (var i=0;i<temp1.length;i++)
+    {
+            tempijk=temp1[i]
+            var canAddSkillNum=3
+            for (var t=0;t<3;t++)
+            {
+                if (tempijk[t]>=maxSkill[t])
+                {
+                    canAddSkillNum = canAddSkillNum - 1
+
+                }
+            }
             for (var t=0;t<3;t++)
             {
                 if (tempijk[t]>=maxSkill[t])
@@ -79,23 +92,30 @@ function fanwei(b,ijk)
                 {
                     nijk[tt]= (t == tt) ? tempijk[tt]+1 : tempijk[tt]
                 }
-                temp2.push(nijk)
+                nnijk=nijk[0].toString()+nijk[1].toString()+nijk[2].toString()
+                var findmark = ttemp2.indexOf(nnijk)
+                if (findmark==-1)
+                {
+                    temp2.push(nijk)
+                    ttemp2.push(nnijk)
+                    prob2.push(1.0 / canAddSkillNum * prob1[i])
+                }
+                else
+                {
+                    prob2[findmark] = prob2[findmark] + 1.0 / canAddSkillNum * prob1[i]
+                }
             }
         }
-        temp1=temp2
-        temp2=[]
+        var temp1=temp2
+        var temp2=[]
+        var ttemp1=ttemp2
+        var ttemp2=[]
+        var prob1=prob2
+        var prob2=[]
     }
     for (var i=0;i<temp1.length;i++)
     {
-        ret=ret+b[temp1[i][0]][temp1[i][1]][temp1[i][2]]
-    }
-    if (temp1.length==0)
-    {
-        ret=0
-    }
-    else
-    {
-        ret=ret/temp1.length
+        ret = ret + b[temp1[i][0]][temp1[i][1]][temp1[i][2]] * prob1[i]
     }
     ret++
     return ret
@@ -104,9 +124,9 @@ function fanwei(b,ijk)
 function cb(n)
 {
     var ret=[]
-    for (var i=1;i<n;i++)
+    for (var i=1;i<n-1;i++)
     {
-        for (var j=i+1;j<n+1;j++)
+        for (var j=i+1;j<n;j++)
         {
             ret.push([i,j])
         }
@@ -122,7 +142,6 @@ function main()
     nowSkill=[Number(nowSkill[0]),Number(nowSkill[1]),Number(nowSkill[2])]
     var bestSkill = myform.bestskill.value
     bestSkill=[Number(bestSkill[0]),Number(bestSkill[1]),Number(bestSkill[2])]
-
     for (var total = maxSkill[0]+maxSkill[1]+maxSkill[2];total>2;total--)
     {
         all=cb(total)
@@ -138,19 +157,22 @@ function main()
             }
             ret1=zhengwei(b,ijk)
             ret2=fanwei(b,ijk)
-            if (ret1<ret2)
+           <!--拿来测试输出的 console.log("%d%d%d %.2f %.2f",ijk[0],ijk[1],ijk[2],ret1,ret2)  -->  
+            if (ret1-ret2>-0.01&&ret1-ret2<0.01)
+            {
+               b[ijk[0]][ijk[1]][ijk[2]]=ret1        
+            }
+            else if (ret1<ret2)
             {
                 a[ijk[0]][ijk[1]][ijk[2]]="正喂"
                 b[ijk[0]][ijk[1]][ijk[2]]=ret1
+
             }
             else if (ret1>ret2)
             {
                 a[ijk[0]][ijk[1]][ijk[2]]="反喂"
                 b[ijk[0]][ijk[1]][ijk[2]]=ret2
-            }
-            else
-            {
-                b[ijk[0]][ijk[1]][ijk[2]]=ret1
+                
             }
         }
     }
@@ -179,9 +201,10 @@ function main()
 </form>
 <button type="button" onclick="main()">计算</button>
 <br/><br/>
-正反喂策略: <br/>
+<p>正反喂策略: </p>
 <p id="demo">结果显示处</p>
 <br/><br/>
+<p>感谢网易大神 @半暮色半声笛 反馈的bug</p>
 <a href="./addSkill.py">python3版本源码</a>
 <br/><br/>
 <a href="./index.html">返回主页</a>
