@@ -78,10 +78,9 @@ function CloseDiv(show_div, bg_div)
 <p>N卡与阴阳师部分@<a href="https://ds.163.com/webapp/share/users/f73d377c06ab4d38a4b5f43c9af281bc/home"><ruby>沺<rp>(<rp><rt>tián</rt><rp>)</ruby>田勘介</a></p>
 <p></p>
         <input id="Button1" type="button" value="致谢" onclick="ShowDiv('MyDiv','fade')" />
+		<input id="Button2" type="button" value="凡例" onclick="ShowDiv('MyDiv2','fade')" />
         <!--弹出层时背景层DIV-->
-        <div id="fade" class="black_overlay">
-
-        </div>
+        <div id="fade" class="black_overlay"></div>
 
         <div id="MyDiv" class="white_content">
 			<div style="text-align: right; cursor: default; height: 40px;">
@@ -96,7 +95,20 @@ function CloseDiv(show_div, bg_div)
             <p>举手相庆&nbsp;&nbsp;文血の羽</p>
             <p>竹之幽&nbsp;&nbsp;&nbsp;&nbsp;Clovers</p>
 			<h4>网页设计参考</h4><hr />
-			CSDN&nbsp;&nbsp;llayjun
+			CSDN&nbsp;&nbsp;<a href="https://blog.csdn.net/llayjun/article/details/79196465">llayjun</a>
+        </div>
+		<div id="MyDiv2" class="white_content">
+			<div style="text-align: right; cursor: default; height: 40px;">
+            <input id="Button2" type="button" value="关闭" onclick="CloseDiv('MyDiv2','fade')" />
+            </div>
+			<ol>
+				<li>本文只涉及技能AI部分，不涉及技能机制，例如书翁【万象之书】第一个诅咒目标属于本文探讨范围，而第二个诅咒目标则不属于。
+				<li>下文中，“技能选择”是指，在各种情况下，从可以使用的技能中选择使用的技能。如大天狗的“使用【羽刃暴风】”指在通常情况下，使用技能【羽刃暴风】。“目标选择”是指在已经选定技能下，该技能如何选择技能的目标。
+				<li>“技能选择”基本都指通常情况时。通常情况指，无人为干预（AI调为普攻、强制选择目标等）、鬼火充足（除了常见的鬼火数量不足，还可能存在的因素有青行灯【明灯】、真大蛇和巫女大蛇等副本机制、苍风一目连等）、未受控制（沉默、眩晕等）、未额外获得技能（百目鬼凝视、荒幻境等）、有合理的目标（占卜·复活、饿鬼吞食等）、技能均未进入CD（般若等）等情况。大部分特殊情况过于简单而略去，少部分特殊情况特殊说明。
+				<li>“目标选择”中，部分技能选择目标无区别（即开启智能施法时不用进行该步骤的技能），如大天狗的【羽刃暴风】、犬神的【心剑乱舞】等，将略去。
+				<li>下文中，经常出现“单位”一词。对于治疗护盾类技能和玉藻前的技能，该词通常只包括式神、阴阳师。对于除了玉藻前以外的其他式神的技能，该词包括式神、阴阳师、召唤物以及隐藏血条的单位（如晴明的御灵、竞速本的蛇魔和御灵本的小纸人等）。（玉藻前的技能特殊是因为某次更新作为特例更改）
+				<li>.如有错误，敬请斧正。
+			</ol>
         </div>
 <hr />
 <div class="container">
