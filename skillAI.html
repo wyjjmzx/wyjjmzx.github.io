@@ -58,7 +58,6 @@ function search1()
         if (a[i].getAttribute("name").indexOf(tag)>=0 || tag=="")
         {
             a[i].style.display='block'
-
         }
         else
         {
@@ -67,6 +66,22 @@ function search1()
     }
 }
 function search2()
+{
+    var tag=document.getElementById("search").value
+    var a=document.getElementsByClassName("content")
+    for (var i=0;i<a.length;i++)
+    {
+        if (a[i].getAttribute("name")==tag)
+        {
+            a[i].style.display='block'
+        }
+        else
+        {
+            a[i].style.display='none'
+        }
+    }
+}
+function search3()
 {
 	document.getElementById("search").value=""
 	search1()
@@ -119,14 +134,16 @@ function CloseDiv(show_div, bg_div)
 				<li>“技能选择”基本都指通常情况时。通常情况指，无人为干预（AI调为普攻、强制选择目标等）、鬼火充足（除了常见的鬼火数量不足，还可能存在的因素有青行灯【明灯】、真大蛇和巫女大蛇等副本机制、苍风一目连等）、未受控制（沉默、眩晕等）、未额外获得技能（百目鬼凝视、荒幻境等）、有合理的目标（占卜·复活、饿鬼吞食等）、技能均未进入CD（般若等）等情况。大部分特殊情况过于简单而略去，少部分特殊情况特殊说明。
 				<li>“目标选择”中，部分技能选择目标无区别（即开启智能施法时不用进行该步骤的技能），如大天狗的【羽刃暴风】、犬神的【心剑乱舞】等，将略去。
 				<li>下文中，经常出现“单位”一词。对于治疗护盾类技能和玉藻前的技能，该词通常只包括式神、阴阳师。对于除了玉藻前以外的其他式神的技能，该词包括式神、阴阳师、召唤物以及隐藏血条的单位（如晴明的御灵、竞速本的蛇魔和御灵本的小纸人等）。（玉藻前的技能特殊是因为某次更新作为特例更改）
-				<li>.如有错误，敬请斧正。
+				<li>“搜索”和“精搜”的区别是，例如输入“妖刀姬”，那么“搜索”也会出现赤影妖刀姬、妖刀姬和妖刀姬呱，“精搜”只会出现妖刀姬。
+				<li>如有错误，敬请斧正。
 			</ol>
         </div>
 <div class="container">
     <form action="" class="parent">
-        <input id="search" type="text" value="">
+        <input id="search" type="text" value="妖刀姬">
         <input type="button" value="搜索" onclick="search1()">
-		<input type="button" value="搜索重置" onclick="search2()">
+		<input type="button" value="精搜" onclick="search2()">
+		<input type="button" value="重置" onclick="search3()">
     </form>
 </div>
 <hr />
@@ -166,16 +183,16 @@ function CloseDiv(show_div, bg_div)
 <p>--目标选择：</p>
 <p>1技能【鬼葫芦】：当敌方有生命比例在40%以上的单位时，优先选择其中生命比例最高的单位为目标。</p>
 <hr /></div>
-<div class="content" name="荒川之主：">
-<p>荒川之主：</p>
+<div class="content" name="荒川之主">
+<p>荒川之主</p>
 <p>--技能选择</p>
 <p>使用3技能【吞噬】。</p>
 <p>--目标选择</p>
 <p>1技能【游鱼】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <p>3技能【吞噬】：优先选择生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="阎魔：">
-<p>阎魔：</p>
+<div class="content" name="阎魔">
+<p>阎魔</p>
 <p>--技能选择</p>
 <p>使用3技能【冤魂重压】。</p>
 <p>--目标选择</p>
@@ -206,16 +223,16 @@ function CloseDiv(show_div, bg_div)
 <p>2.当敌方有生命比例在30%以上的单位时，优先选择其中生命比例最高的单位为目标。</p>
 <p>若同时满足1、2条件，拥有【眩晕】buff的敌方单位生命比例减20%进行2中的计算。</p>
 <hr /></div>
-<div class="content" name="茨木童子：">
-<p>茨木童子：</p>
+<div class="content" name="茨木童子">
+<p>茨木童子</p>
 <p>--技能选择</p>
 <p>通常情况：使用3技能【地狱之手】。</p>
 <p>--目标选择</p>
 <p>1技能【黑焰】：优先选择生命比例最低的单位为目标。</p>
 <p>3技能【地狱之手】：优先选择生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="青行灯：">
-<p>青行灯：</p>
+<div class="content" name="青行灯">
+<p>青行灯</p>
 <p>--技能选择</p>
 <p>当敌方单位数大于等于2时：</p>
 <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp鬼火大于等于3时：使用3技能【吸魂灯】。</p>
@@ -227,16 +244,16 @@ function CloseDiv(show_div, bg_div)
 <p>--目标选择：</p>
 <p>1技能【幽光】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="妖刀姬：">
-<p>妖刀姬：</p>
+<div class="content" name="妖刀姬">
+<p>妖刀姬</p>
 <p>--技能选择</p>
 <p>使用3技能【杀戮】。</p>
 <p>--目标选择</p>
 <p>1技能【不祥之刃】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <p>3技能【杀戮】：优先选择生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="一目连：">
-<p>一目连：</p>
+<div class="content" name="一目连">
+<p>一目连</p>
 <p>--技能选择</p>
 <p>当所有友方单位生命比例在40%以上时，使用3技能【风神之佑】。</p>
 <p>当存在友方单位生命比例在40%以下时，使用2技能【风符·护】。</p>
@@ -493,8 +510,8 @@ function CloseDiv(show_div, bg_div)
 <p>2技能【汤盆冲撞】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <p>3技能【天降之物】：随机。</p>
 <hr /></div>
-<div class="content" name="犬神：">
-<p>犬神：</p>
+<div class="content" name="犬神">
+<p>犬神</p>
 <p>--技能选择</p>
 <p>使用3技能【心剑乱舞】。</p>
 <p>--目标选择</p>
@@ -508,8 +525,8 @@ function CloseDiv(show_div, bg_div)
 <p>1技能【骨刃】：当敌方有生命比例在30%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <p>3技能【一步一息】：当敌方有生命比例在40%以上的单位时，优先选择其中生命比例最高的单位为目标。</p>
 <hr /></div>
-<div class="content" name="鬼女红叶：">
-<p>鬼女红叶：</p>
+<div class="content" name="鬼女红叶">
+<p>鬼女红叶</p>
 <p>--技能选择</p>
 <p>当敌方单位数大于等于2时：</p>
 <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp鬼火大于等于3时：使用3技能【死亡之舞】。</p>
@@ -521,8 +538,8 @@ function CloseDiv(show_div, bg_div)
 <p>--目标选择</p>
 <p>1技能【红枫】：当敌方有生命比例在30%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="跳跳哥哥：">
-<p>跳跳哥哥：</p>
+<div class="content" name="跳跳哥哥">
+<p>跳跳哥哥</p>
 <p>--技能选择</p>
 <p>使用3技能【死而复生】。</p>
 <p>--目标选择</p>
@@ -1214,8 +1231,8 @@ function CloseDiv(show_div, bg_div)
 <p>--目标选择</p>
 <p>1技能【扔石头】：当敌方有生命比例在10%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="晴明：">
-<p>晴明：</p>
+<div class="content" name="晴明">
+<p>晴明</p>
 <p>--技能选择</p>
 <p>优先度从高到低排列如下：</p>
 <p>所有队友均无星buff时，使用【言灵·星】</p>
@@ -1230,8 +1247,8 @@ function CloseDiv(show_div, bg_div)
 <p>--目标选择</p>
 <p>【基础术式】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="神乐：">
-<p>神乐：</p>
+<div class="content" name="神乐">
+<p>神乐</p>
 <p>--技能选择</p>
 <p>优先度从高到低排列如下：</p>
 <p>存在队友生命低于50%时，使用【召唤·伞】</p>
@@ -1243,8 +1260,8 @@ function CloseDiv(show_div, bg_div)
 <p>--目标选择</p>
 <p>【伞击】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="八百比丘尼：">
-<p>八百比丘尼：</p>
+<div class="content" name="八百比丘尼">
+<p>八百比丘尼</p>
 <p>--技能选择</p>
 <p>随机使用除【星之光】外的任意技能。</p>
 <p>--目标选择</p>
@@ -1252,8 +1269,8 @@ function CloseDiv(show_div, bg_div)
 <p>【占卜之印·反伤】：当友方有生命比例在50%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <p>【占卜之印·复活】：当友方有生命比例在50%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="源博雅：">
-<p>源博雅：</p>
+<div class="content" name="源博雅">
+<p>源博雅</p>
 <p>--技能选择</p>
 <p>优先度从高到低排列如下：</p>
 <p>使用【秘术·豹眼】</p>
@@ -1265,31 +1282,31 @@ function CloseDiv(show_div, bg_div)
 <p>【破魔矢】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <p>【诛邪箭】：当敌方有生命比例在30%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="番茄：">
-<p>番茄：</p>
+<div class="content" name="番茄">
+<p>番茄</p>
 <p>--技能选择</p>
 <p>使用3技能【愤怒】。</p>
 <p>--目标选择</p>
 <p>1技能【撕咬】：当敌方有生命比例在50%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <p>3技能【愤怒】：当敌方有生命比例在50%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="灯笼鬼：">
-<p>灯笼鬼：</p>
+<div class="content" name="灯笼鬼">
+<p>灯笼鬼</p>
 <p>--技能选择</p>
 <p>当所有友方单位均无大鬼笼的暴击buff时，使用3技能【大鬼笼】。</p>
 <p>当存在友方单位拥有大鬼笼的暴击buff时，使用1技能【舔】。</p>
 <p>--目标选择</p>
 <p>1技能【舔】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="提灯小僧：">
-<p>提灯小僧：</p>
+<div class="content" name="提灯小僧">
+<p>提灯小僧</p>
 <p>--技能选择</p>
 <p>使用3技能【鬼火球】。</p>
 <p>--目标选择</p>
 <p>1技能【头槌】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="赤舌：">
-<p>赤舌：</p>
+<div class="content" name="赤舌">
+<p>赤舌</p>
 <p>--技能选择</p>
 <p>当敌方单位数大于等于2时：</p>
 <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp鬼火大于等于3时：使用3技能【风鼓雷】。</p>
@@ -1301,53 +1318,53 @@ function CloseDiv(show_div, bg_div)
 <p>--目标选择</p>
 <p>1技能【海扁】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="盗墓小鬼：">
-<p>盗墓小鬼：</p>
+<div class="content" name="盗墓小鬼">
+<p>盗墓小鬼</p>
 <p>--技能选择</p>
 <p>使用1技能【不祥黑火】。</p>
 <p>--目标选择</p>
 <p>1技能【不祥黑火】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="寄生魂：">
-<p>寄生魂：</p>
+<div class="content" name="寄生魂">
+<p>寄生魂</p>
 <p>--技能选择</p>
 <p>使用1技能【投火】。</p>
 <p>--目标选择</p>
 <p>1技能【投火】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="跳跳犬：">
-<p>跳跳犬：</p>
+<div class="content" name="跳跳犬">
+<p>跳跳犬</p>
 <p>--技能选择</p>
 <p>使用2技能【死亡冲撞】。</p>
 <p>--目标选择</p>
 <p>1技能【扑咬】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <p>2技能【死亡冲撞】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="唐纸伞妖：">
-<p>唐纸伞妖：</p>
+<div class="content" name="唐纸伞妖">
+<p>唐纸伞妖</p>
 <p>--技能选择</p>
 <p>使用2技能【天旋地转】。</p>
 <p>--目标选择</p>
 <p>1技能【我顶！】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="天邪鬼绿：">
-<p>天邪鬼绿：</p>
+<div class="content" name="天邪鬼绿">
+<p>天邪鬼绿</p>
 <p>--技能选择</p>
 <p>使用2技能【我打打打】。</p>
 <p>--目标选择</p>
 <p>1技能【我打】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <p>2技能【我打打打】：随机。</p>
 <hr /></div>
-<div class="content" name="天邪鬼赤：">
-<p>天邪鬼赤：</p>
+<div class="content" name="天邪鬼赤">
+<p>天邪鬼赤</p>
 <p>--技能选择</p>
 <p>使用2技能【挑衅】。</p>
 <p>--目标选择</p>
 <p>1技能【肉弹战车】：随机。</p>
 <p>2技能【挑衅】：随机。</p>
 <hr /></div>
-<div class="content" name="天邪鬼黄：">
-<p>天邪鬼黄：</p>
+<div class="content" name="天邪鬼黄">
+<p>天邪鬼黄</p>
 <p>--技能选择</p>
 <p>当所有友方单位均无锵锵锵时，使用2技能【锵锵锵】。</p>
 <p>当存在友方单位拥有锵锵锵时，使用1技能【咚咚】。</p>
@@ -1355,8 +1372,8 @@ function CloseDiv(show_div, bg_div)
 <p>--目标选择</p>
 <p>1技能【咚咚】：随机。</p>
 <hr /></div>
-<div class="content" name="天邪鬼青：">
-<p>天邪鬼青：</p>
+<div class="content" name="天邪鬼青">
+<p>天邪鬼青</p>
 <p>--技能选择</p>
 <p>当所有友方单位均无低吟时，使用2技能【低吟】。</p>
 <p>当存在友方单位拥有低吟时，使用1技能【乱打】。</p>
@@ -1364,8 +1381,8 @@ function CloseDiv(show_div, bg_div)
 <p>--目标选择</p>
 <p>1技能【乱打】：随机。</p>
 <hr /></div>
-<div class="content" name="帚神：">
-<p>帚神：</p>
+<div class="content" name="帚神">
+<p>帚神</p>
 <p>当敌方单位数大于等于2时：</p>
 <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp鬼火大于等于2时：使用2技能【大扫除】。</p>
 <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp鬼火小于2时：使用1技能【蓄力一击】。</p>
@@ -1376,52 +1393,52 @@ function CloseDiv(show_div, bg_div)
 <p>--目标选择</p>
 <p>1技能【蓄力一击】：随机。</p>
 <hr /></div>
-<div class="content" name="涂壁：">
-<p>涂壁：</p>
+<div class="content" name="涂壁">
+<p>涂壁</p>
 <p>--技能选择</p>
 <p>使用2技能【坚壁】。</p>
 <p>--目标选择</p>
 <p>1技能【地震】：随机。</p>
 <hr /></div>
-<div class="content" name="大天狗呱：">
-<p>大天狗呱：</p>
+<div class="content" name="大天狗呱">
+<p>大天狗呱</p>
 <p>--技能选择</p>
 <p>使用2技能【呱·羽刃暴风】。</p>
 <p>--目标选择</p>
 <p>1技能【呱·风袭】：当敌方有生命比例在30%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="酒吞呱：">
-<p>酒吞呱：</p>
+<div class="content" name="酒吞呱">
+<p>酒吞呱</p>
 <p>--技能选择</p>
 <p>使用2技能【呱·狂啸】。</p>
 <p>--目标选择</p>
 <p>1技能【呱·鬼葫芦】：当敌方有生命比例在40%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="荒川呱：">
-<p>荒川呱：</p>
+<div class="content" name="荒川呱">
+<p>荒川呱</p>
 <p>--技能选择</p>
 <p>使用2技能【呱·吞噬】。</p>
 <p>--目标选择</p>
 <p>1技能【呱·游鱼】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <p>2技能【呱·吞噬】：优先选择生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="阎魔呱：">
-<p>阎魔呱：</p>
+<div class="content" name="阎魔呱">
+<p>阎魔呱</p>
 <p>--技能选择</p>
 <p>使用2技能【呱·怨魂重压】。</p>
 <p>--目标选择</p>
 <p>1技能【呱·鬼面】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <p>2技能【呱·怨魂重压】：当敌方有生命比例在40%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="两面佛呱：">
-<p>两面佛呱：</p>
+<div class="content" name="两面佛呱">
+<p>两面佛呱</p>
 <p>--技能选择</p>
 <p>使用2技能【呱·神罪连击】。</p>
 <p>--目标选择</p>
 <p>1技能【呱·风雷两生】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="小鹿男呱：">
-<p>小鹿男呱：</p>
+<div class="content" name="小鹿男呱">
+<p>小鹿男呱</p>
 <p>--技能选择</p>
 <p>当存在友方小鹿男拥有【生生不息】时，使用2技能【呱·鹿角冲撞】。</p>
 <p>当所有友方小鹿男均无【生生不息】时，使用1技能【呱·森之力】。</p>
@@ -1437,16 +1454,16 @@ function CloseDiv(show_div, bg_div)
 <p>2.当敌方有生命比例在30%以上的单位时，优先选择其中生命比例最高的单位为目标。</p>
 <p>若同时满足1、2条件，拥有【眩晕】buff的敌方单位生命比例减20%进行2中的计算。</p>
 <hr /></div>
-<div class="content" name="茨木呱：">
-<p>茨木呱：</p>
+<div class="content" name="茨木呱">
+<p>茨木呱</p>
 <p>--技能选择</p>
 <p>使用2技能【呱·地狱之手】。</p>
 <p>--目标选择</p>
 <p>1技能【呱·黑焰】：优先选择生命比例最低的单位为目标。</p>
 <p>2技能【呱·地狱之手】：优先选择生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="青行灯呱：">
-<p>青行灯呱：</p>
+<div class="content" name="青行灯呱">
+<p>青行灯呱</p>
 <p>--技能选择</p>
 <p>当敌方单位数大于等于2时：</p>
 <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp鬼火大于等于3时：使用2技能【呱·吸魂灯】。</p>
@@ -1458,31 +1475,31 @@ function CloseDiv(show_div, bg_div)
 <p>--目标选择：</p>
 <p>1技能【呱·幽光】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="妖刀姬呱：">
-<p>妖刀姬呱：</p>
+<div class="content" name="妖刀姬呱">
+<p>妖刀姬呱</p>
 <p>--技能选择</p>
 <p>使用2技能【呱·杀戮】。</p>
 <p>--目标选择</p>
 <p>1技能【呱·不祥之刃】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <p>2技能【呱·杀戮】：当敌方有生命比例在25%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="一目连呱：">
-<p>一目连呱：</p>
+<div class="content" name="一目连呱">
+<p>一目连呱</p>
 <p>--技能选择</p>
 <p>使用2技能【呱·风神之佑】。</p>
 <p>--目标选择</p>
 <p>1技能【呱·风符·破】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="花鸟卷呱：">
-<p>花鸟卷呱：</p>
+<div class="content" name="花鸟卷呱">
+<p>花鸟卷呱</p>
 <p>--技能选择</p>
 <p>当所有友方单位生命比例在70%以上时，使用1技能【呱·归鸟】。</p>
 <p>当存在友方单位生命比例在70%以下时，使用3技能【呱·花鸟相闻】。</p>
 <p>--目标选择</p>
 <p>1技能【归鸟】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="辉夜姬呱：">
-<p>辉夜姬呱：</p>
+<div class="content" name="辉夜姬呱">
+<p>辉夜姬呱</p>
 <p>--技能选择</p>
 <p>当己方未拥有【幻境】或【幻境】剩余回合数小于等于1时，使用2技能【呱·龙首之玉】。</p>
 <p>当己方拥有【幻境】且【幻境】剩余回合数等于2时，使用1技能【呱·蓬莱玉枝】。</p>
@@ -1490,16 +1507,16 @@ function CloseDiv(show_div, bg_div)
 <p>--目标选择</p>
 <p>1技能【呱·蓬莱玉枝】：当敌方有生命比例在20%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="荒呱：">
-<p>荒呱：</p>
+<div class="content" name="荒呱">
+<p>荒呱</p>
 <p>--技能选择</p>
 <p>使用2技能【呱·天罚·星】。</p>
 <p>--目标选择</p>
 <p>1技能【星轨】：当敌方有生命比例在30%以下的单位时，优先选择其中生命比例最低的单位为目标。</p>
 <p>2技能【呱·天罚·星】：优先选择生命比例最低的单位为目标。</p>
 <hr /></div>
-<div class="content" name="彼岸花呱：">
-<p>彼岸花呱：</p>
+<div class="content" name="彼岸花呱">
+<p>彼岸花呱</p>
 <p>--技能选择</p>
 <p>当己方只有一个彼岸花时：使用2技能【呱·血之花海】。</p>
 <p>当己方有多个彼岸花时：有可能使用1技能【呱·死亡之花】，但机制复杂且不实用，未探究。</p>
