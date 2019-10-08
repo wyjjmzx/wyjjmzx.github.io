@@ -53,32 +53,54 @@ function search1()
 {
     var tag=document.getElementById("search").value
     var a=document.getElementsByClassName("content")
+	var b=document.getElementById("nocontent")
+	var count=0
     for (var i=0;i<a.length;i++)
     {
         if (a[i].getAttribute("name").indexOf(tag)>=0 || tag=="")
         {
             a[i].style.display='block'
+			count=count+1
         }
         else
         {
             a[i].style.display='none'
         }
+		if (count==0)
+		{
+			b.style.display="block"
+		}
+		else
+		{
+			b.style.display="none"
+		}
     }
 }
 function search2()
 {
     var tag=document.getElementById("search").value
     var a=document.getElementsByClassName("content")
+	var b=document.getElementById("nocontent")
+	var count=0
     for (var i=0;i<a.length;i++)
     {
         if (a[i].getAttribute("name")==tag)
         {
             a[i].style.display='block'
+			count=1
         }
         else
         {
             a[i].style.display='none'
         }
+		if (count==1)
+		{
+			b.style.display='none'
+		}
+		else
+		{
+			b.style.display='block'
+		}
     }
 }
 function search3()
@@ -153,7 +175,9 @@ function CloseDiv(show_div, bg_div)
     </form>
 </div>
 <hr />
-
+<div id="nocontent" style="display: none">
+<p>抱歉，未搜索到式神</p>
+<hr /></div>
 <div class="content" name="烬天玉藻前">
 <p>烬天玉藻前</p>
 <p>--技能选择</p>
