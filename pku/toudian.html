@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<meta charset= " UTF-8 " >
+<title>选课投点 - 午夜的小站</title>
+
+<script src="https://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script>
+    var i = 1;
+    var l = 1;
+    $(function () 
+        {
+            $("#box").on('click','#addp',function () {
+                $("#hint2").text("填好表格后点“计算”")
+                l = l + 1;
+                var addP='<tr id="content"><td><p id="xuhao" style="text-align:center">1</p></td><td><input type="number" id="'+l+'input1"></td><td><input type="number" id="'+l+'input2"></td><td><input type="number" id="'+l+'input3"></td><td><p id="jieguo" style="text-align:center">?</p></td></tr>'
+                $("#innerBox").append(addP);
+                $('#content p').filter("#xuhao").each(function (i,e) {
+                    $(e).text(i+2);
+                })
+            });
+            $("#box").on("click",'#delp',function () {
+                if (l == 1)
+                {
+                    $("#hint2").text("不能再减啦，再减就没啦")
+                }
+                else
+                {
+                    $("#hint2").text("填好表格后点“计算”")
+                    $("#innerBox #content").last().remove();
+                    $('#content p').filter("#xuhao").each(function (i,e) {
+                        $(e).text(i+2);
+                    })
+                    l = l - 1;
+                }
+            });
+            $("#box").on('click','#help',function () {
+                $("#hint2").text("“权重”体现想选上课的主观意愿，越高越想选。可通设为1或课程的学分。")
+            });
+            $("#box").on('click','#calp',function () {
+                $("#hint2").text("计算已完成")
+            });
+        }
+    );
+</script>
+</head>
+
+<body>
+<!--提示栏-->
+<p id="hint">使用“加课”“减课”按钮增加课程数量</p>
+<p id="hint2">填好表格后点“计算”</p>
+<hr/>
+<!--输入与输出-->
+    <div id="box">
+        <table id="innerBox" border="1">
+        <tr>
+            <th>序号</th>
+            <th>限选人数</th>
+            <th>已选人数</th>
+            <th>快乐值<button id='help'>？</button></th>
+            <th>推荐投点</th>
+        </tr>
+        <tr>
+            <td><p id="xuhao" style="text-align:center">1</p></td>
+            <td><input type="number" id="1input1"></td>
+            <td><input type="number" id="1input2"></td>
+            <td><input type="number" id="1input3"></td>
+            <td><p id="jieguo" style="text-align:center">?</p></td>
+        </tr>
+
+        </table>
+    <hr/>
+    <button id='addp'>加课</button>
+    <button id='delp'>减课</button>
+    <br/>
+    <button id='calp'>计算</button>
+    </div>
+<hr/>
+<!--结语-->
+<p>模型来源树洞<a href=https://pkuhelper.pku.edu.cn/hole/##1182418>1182418</a></p>
+<p>反馈bug请至树洞<a href=https://pkuhelper.pku.edu.cn/hole/##1183618>1183618</a></p>
+</body>
+</html>
