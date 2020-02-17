@@ -14,7 +14,7 @@
             $("#box").on('click','#addp',function () {
                 $("#hint2").text("填好表格后点“计算”")
                 l = l + 1;
-                var addP='<tr id="content"><td><p id="xuhao" style="text-align:center">1</p></td><td><input type="number" id="'+l+'input1"></td><td><input type="number" id="'+l+'input2"></td><td><input type="number" id="'+l+'input3"></td><td><p id="jieguo" style="text-align:center">?</p></td></tr>'
+                var addP='<tr id="content"><td><p id="xuhao" style="text-align:center">1</p></td><td><input type="text" size=5 id="'+l+'input1"></td><td><input type="text" size=5 id="'+l+'input2"></td><td><input type="text" size=8 id="'+l+'input3"></td><td><p id="jieguo" style="text-align:center">?</p></td></tr>'
                 $("#innerBox").append(addP);
                 $('#content p').filter("#xuhao").each(function (i,e) {
                     $(e).text(i+2);
@@ -58,7 +58,7 @@
             <th>序号</th>
             <th>限选人数</th>
             <th>已选人数</th>
-            <th>快乐值<button id='help'>？</button></th>
+            <th>快乐值<button id='help'>?</button></th>
             <th>推荐投点</th>
         </tr>
         <tr>
@@ -80,5 +80,6 @@
 <!--结语-->
 <p>模型来源树洞<a href=https://pkuhelper.pku.edu.cn/hole/##1182418>1182418</a></p>
 <p>反馈bug请至树洞<a href=https://pkuhelper.pku.edu.cn/hole/##1183618>1183618</a></p>
+<p>更新于2020/2/17 10:59</p>
 </body>
 </html>
