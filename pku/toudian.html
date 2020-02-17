@@ -8,14 +8,25 @@
 <script src="https://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
 <script>
     var i = 0;
+    var j = 0;
     var l = 1;
+    function P(e, num0,num1, x)
+    {
+        return e*Math.pow((1-num0/(num1+x)),0.55*x+0.5)*Math.pow(num1/(num1-num0),0.5-0.45*x)
+    }
+    function init()
+    {
+        $("#hint2").text("填好表格后点“计算”")
+        $("#box #jieguo").each(function(i,e) {
+            $(e).text("?")
+        })
+        $("#detail").hide()
+    }
     $(function () 
         {
             $("#box").on('click','#addp',function () {
-                $("#hint2").text("填好表格后点“计算”")
-                $("#box #jieguo").each(function(i,e) {
-                    $(e).text("?")
-                })
+                init()
+
                 l = l + 1;
                 var addP='<tr id="content"><td><p id="xuhao" style="text-align:center">1</p></td><td><input type="text" size=5 class="input1"></td><td><input type="text" size=5 class="input2"></td><td><input type="text" size=8 class="input3"></td><td><p id="jieguo" style="text-align:center">?</p></td></tr>'
                 $("#innerBox").append(addP);
@@ -42,7 +53,7 @@
                 }
             });
             $("#box").on('click','#help',function () {
-                $("#hint2").text("“快乐值”越高越想选该课。可设为1或学分")
+                $("#hint2").text("“快乐值”越高越想选该课。可设为1、学分或其他任何正数")
             });
             //主体计算部分
             $("#box").on('click','#calp',function () {
@@ -51,22 +62,21 @@
                 $("#box #jieguo").each(function(i,e) {
                     $(e).text("?")
                 })
+                var a    = 0           //临时变量
+                var t    = 0           //临时变量
                 var num0 = new Array() //限选人数
                 var num1 = new Array() //已选人数
                 var Per  = new Array() //人数比
                 var per  = new Array() //人数比修正
-                var p    = new Array() //概率
                 var mean = new Array() //平均点数
                 var hapy = new Array() //快乐值
-                var E    = new Array() //综合给分
-                var x    = new Array() //投点比例
+                var poss = new Array() //概率
+                var E    = 0.0         //综合给分
                 var X    = new Array() //投点数
                 var m    = 99          //意愿点总点数
-                var LnA  = 3           //总参
-                var t    = 0           //临时变量
-                var p2   = -128.1      
-                var p1   = 495.8
-                var p0   = -446.0
+                var p2   = -101
+                var p1   = 392.6
+                var p0   = -347.8
                 //正则表达式检验输入输出是否合理
                 var reg1 = /^\d+$/     //自然数
                 var reg2 = /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/   //正数
@@ -85,7 +95,7 @@
                 $("#innerBox .input2").each(function(i,e) {
                     if (reg1.test(e.value)==false)
                     {
-                       $("#hint2").text("已选人数必须是正数")
+                       $("#hint2").text("已选人数必须是正整数")
                        right = false
                     }
                     else
@@ -96,7 +106,7 @@
                 $("#innerBox .input1").each(function(i,e) {
                     if (reg1.test(e.value)==false)
                     {
-                       $("#hint2").text("限选人数必须是正数")
+                       $("#hint2").text("限选人数必须是正整数")
                        right = false
                     }
                     else
@@ -112,29 +122,53 @@
                 //主体部分
                 if (right==true)
                 {
-                    for (i = 0; i < l; i++) 
-                    { 
-                        Per[i] = num1[i]/num0[i];
-                        per[i]=Math.pow(Per[i]-1,0.125)+1;
-                        mean[i]=p2*Math.pow(per[i],2)+p1*per[i]+p0+0.5;
-                        mean[i]=0.92*mean[i]+0.08*99.5;
-                        p[i]=Math.pow((num1[i]-num0[i])/num1[i],33.5/mean[i]);
-                        E[i]=-hapy[i]*Math.log(p[i]);
-                    } 
-                    for(i=0;i<l;i++)
+                    X[0]=99
+                    for (i=1;i<l;i++)
                     {
-                        LnA+=Math.log(E[i])/Math.log(p[i]);
-                        t+=1/Math.log(p[i]);
+                        X[i]=0
                     }
-                    LnA=LnA/t;
-                    for(i=0;i<l;i++)
+                    for (i=0;i<l;i++)
                     {
-                        x[i]=(LnA-Math.log(E[i]))/Math.log(p[i]);
-                        X[i]=(m+0.5*l)/3*x[i]-0.5;
+                        Per[i]=num1[i]/num0[i]
+                        per[i]=Math.pow(Per[i]-1,0.125)+1
+                        mean[i]=p2*Math.pow(per[i],2)+p1*per[i]+p0+0.5
+                        mean[i]=0.92*mean[i]+0.08*99.5
                     }
+                    for (i=0;i<l;i++)
+                    {
+                        if (X[(a+i)%l]==0)
+                        {
+                            continue
+                        }
+                        for (j=1;j<l;j++)
+                        {
+                            if (P(hapy[(a+i)%l],num0[(a+i)%l],num1[(a+i)%l],(X[(a+i)%l]+0.5)/mean[(a+i)%l])+P(hapy[(a+i+j)%l],num0[(a+i+j)%l],num1[(a+i+j)%l],(X[(a+i+j)%l]+0.5)/mean[(a+i+j)%l]) >P(hapy[(a+i)%l],num0[(a+i)%l],num1[(a+i)%l],(X[(a+i)%l]-0.5)/mean[(a+i)%l])+P(hapy[(a+i+j)%l],num0[(a+i+j)%l],num1[(a+i+j)%l],(X[(a+i+j)%l]+1.5)/mean[(a+i+j)%l]))
+                            {
+                                X[(a+i)%l]=X[(a+i)%l]-1
+                                X[(a+i+j)%l]=X[(a+i+j)%l]+1
+                                a=(a+i+j)%l
+                                i=0
+                                j=1
+                                console.log(a)
+                            }
+                        }
+                    }
+                    var towrite = ""
+                    for (i=0;i<l;i++)
+                    {
+                        t=hapy[i]-P(hapy[i],num0[i],num1[i],(X[i]+0.5)/mean[i])
+                        E=E+t
+                        poss[i]=t/hapy[i]*100
+                        towrite+="课程"+(i+1)+"选中概率："+poss[i].toFixed(2)+"%"+"\n"
+                    }
+                    towrite+="总期望快乐值："+E.toFixed(3)
                     $('#box p').filter("#jieguo").each(function (i,e) {
-                        $(e).text(Math.round(X[i]));
+                        $(e).text(Math.round(X[i]))
                     })
+
+                    
+                    $("#hint").text(towrite)
+                    $("#detail").show();
                     $("#hint2").text("注：如果结果为负数，则表示您应该放弃该课或投0点，请删除该课后重新计算。")
                 }
 
@@ -173,6 +207,10 @@
     <br/>
     <button id='calp'>计算</button>
     </div>
+<div id="detail" style="white-space: pre-line;display: none;">
+<hr/>
+<p id="hint"></p>
+</div>
 <hr/>
 <!--结语-->
 <p>模型来源树洞<a href=https://pkuhelper.pku.edu.cn/hole/##1182418>1182418</a>（我是Bob）</p>
