@@ -7,14 +7,17 @@
 
 <script src="https://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
 <script>
-    var i = 1;
+    var i = 0;
     var l = 1;
     $(function () 
         {
             $("#box").on('click','#addp',function () {
                 $("#hint2").text("填好表格后点“计算”")
+                $("#box #jieguo").each(function(i,e) {
+                    $(e).text("?")
+                })
                 l = l + 1;
-                var addP='<tr id="content"><td><p id="xuhao" style="text-align:center">1</p></td><td><input type="text" size=5 id="'+l+'input1"></td><td><input type="text" size=5 id="'+l+'input2"></td><td><input type="text" size=8 id="'+l+'input3"></td><td><p id="jieguo" style="text-align:center">?</p></td></tr>'
+                var addP='<tr id="content"><td><p id="xuhao" style="text-align:center">1</p></td><td><input type="text" size=5 class="input1"></td><td><input type="text" size=5 class="input2"></td><td><input type="text" size=8 class="input3"></td><td><p id="jieguo" style="text-align:center">?</p></td></tr>'
                 $("#innerBox").append(addP);
                 $('#content p').filter("#xuhao").each(function (i,e) {
                     $(e).text(i+2);
@@ -28,6 +31,9 @@
                 else
                 {
                     $("#hint2").text("填好表格后点“计算”")
+                    $("#box #jieguo").each(function(i,e) {
+                        $(e).text("?")
+                    })
                     $("#innerBox #content").last().remove();
                     $('#content p').filter("#xuhao").each(function (i,e) {
                         $(e).text(i+2);
@@ -36,10 +42,102 @@
                 }
             });
             $("#box").on('click','#help',function () {
-                $("#hint2").text("“快乐值”体现想选上课的主观意愿，越高越想选。可通设为1或课程的学分。")
+                $("#hint2").text("“快乐值”越高越想选该课。可设为1或学分")
             });
+            //主体计算部分
             $("#box").on('click','#calp',function () {
-                $("#hint2").text("计算已完成")
+                
+                //初始化
+                $("#box #jieguo").each(function(i,e) {
+                    $(e).text("?")
+                })
+                var num0 = new Array() //限选人数
+                var num1 = new Array() //已选人数
+                var Per  = new Array() //人数比
+                var per  = new Array() //人数比修正
+                var p    = new Array() //概率
+                var mean = new Array() //平均点数
+                var hapy = new Array() //快乐值
+                var E    = new Array() //综合给分
+                var x    = new Array() //投点比例
+                var X    = new Array() //投点数
+                var m    = 99          //意愿点总点数
+                var LnA  = 3           //总参
+                var t    = 0           //临时变量
+                var p2   = -128.1      
+                var p1   = 495.8
+                var p0   = -446.0
+                //正则表达式检验输入输出是否合理
+                var reg1 = /^\d+$/     //自然数
+                var reg2 = /^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/   //正数
+                var right= true
+                $("#innerBox .input3").each(function(i,e) {
+                    if (reg2.test(e.value)==false)
+                    {
+                       $("#hint2").text("快乐值必须是正数")
+                       right = false
+                    }
+                    else
+                    {
+                        hapy[i]=parseFloat(e.value)
+                    }
+                })
+                $("#innerBox .input2").each(function(i,e) {
+                    if (reg1.test(e.value)==false)
+                    {
+                       $("#hint2").text("已选人数必须是正数")
+                       right = false
+                    }
+                    else
+                    {
+                        num1[i]=parseFloat(e.value)
+                    }
+                })
+                $("#innerBox .input1").each(function(i,e) {
+                    if (reg1.test(e.value)==false)
+                    {
+                       $("#hint2").text("限选人数必须是正数")
+                       right = false
+                    }
+                    else
+                    {
+                        num0[i]=parseFloat(e.value)
+                        if (num0[i]>=num1[i])
+                        {
+                            right=false
+                            $("#hint2").text("每门课的已选人数必须大于限选人数")
+                        }
+                    }
+                })
+                //主体部分
+                if (right==true)
+                {
+                    for (i = 0; i < l; i++) 
+                    { 
+                        Per[i] = num1[i]/num0[i];
+                        per[i]=Math.pow(Per[i]-1,0.125)+1;
+                        mean[i]=p2*Math.pow(per[i],2)+p1*per[i]+p0+0.5;
+                        mean[i]=0.92*mean[i]+0.08*99.5;
+                        p[i]=Math.pow((num1[i]-num0[i])/num1[i],33.5/mean[i]);
+                        E[i]=-hapy[i]*Math.log(p[i]);
+                    } 
+                    for(i=0;i<l;i++)
+                    {
+                        LnA+=Math.log(E[i])/Math.log(p[i]);
+                        t+=1/Math.log(p[i]);
+                    }
+                    LnA=LnA/t;
+                    for(i=0;i<l;i++)
+                    {
+                        x[i]=(LnA-Math.log(E[i]))/Math.log(p[i]);
+                        X[i]=(m+0.5*l)/3*x[i]-0.5;
+                    }
+                    $('#box p').filter("#jieguo").each(function (i,e) {
+                        $(e).text(Math.round(X[i]));
+                    })
+                    $("#hint2").text("注：如果结果为负数，则表示您应该放弃该课或投0点。请删除该课并重试。")
+                }
+
             });
         }
     );
@@ -48,7 +146,6 @@
 
 <body>
 <!--提示栏-->
-<p id="hint">使用“加课”“减课”按钮增加课程数量</p>
 <p id="hint2">填好表格后点“计算”</p>
 <hr/>
 <!--输入与输出-->
@@ -63,9 +160,9 @@
         </tr>
         <tr>
             <td><p id="xuhao" style="text-align:center">1</p></td>
-            <td><input type="text" size=5 id="1input1"></td>
-            <td><input type="text" size=5 id="1input2"></td>
-            <td><input type="text" size=8 id="1input3"></td>
+            <td><input type="text" size=5  class="input1"></td>
+            <td><input type="text" size=5  class="input2"></td>
+            <td><input type="text" size=8  class="input3"></td>
             <td><p id="jieguo" style="text-align:center">?</p></td>
         </tr>
 
@@ -78,7 +175,7 @@
     </div>
 <hr/>
 <!--结语-->
-<p>模型来源树洞<a href=https://pkuhelper.pku.edu.cn/hole/##1182418>1182418</a></p>
+<p>模型来源树洞<a href=https://pkuhelper.pku.edu.cn/hole/##1182418>1182418</a>（我是Bob）</p>
 <p>反馈bug请至树洞<a href=https://pkuhelper.pku.edu.cn/hole/##1183618>1183618</a></p>
 <p>更新于2020/2/17 10:59</p>
 </body>
