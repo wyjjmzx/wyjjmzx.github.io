@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<link rel="stylesheet" href="style.css">
 <meta charset= " UTF-8 " >
 <title>选课投点 - 午夜的小站</title>
 
@@ -179,12 +180,13 @@
 </head>
 
 <body>
+<div class="all_content">
 <!--提示栏-->
 <p id="hint2">填好表格后点“计算”</p>
 <hr/>
 <!--输入与输出-->
-    <div id="box">
-        <table id="innerBox" border="1">
+    <div id="box" class="box">
+        <table id="innerBox" class="innerBox" border="1">
         <tr>
             <th>序号</th>
             <th>限选人数</th>
@@ -201,11 +203,27 @@
         </tr>
 
         </table>
-    <hr/>
-    <button id='addp'>加课</button>
-    <button id='delp'>减课</button>
-    <br/>
-    <button id='calp'>计算</button>
+    <a id='addp'>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      加课
+    </a>
+    <a id='delp'>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      减课
+    </a>
+    <a id='calp'>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        计算
+    </a>
     </div>
 <div id="detail" style="white-space: pre-line;display: none;">
 <hr/>
@@ -213,7 +231,9 @@
 </div>
 <hr/>
 <!--结语-->
-<p>模型来源树洞<a href=https://pkuhelper.pku.edu.cn/hole/##1182418>1182418</a>（我是Bob）</p>
-<p>更新于2020/2/17 17:51</p>
+<p>网页：15本夏义杰</p>
+<p><a href="https://pan.baidu.com/share/init?surl=N2RRYoWfWvBxtYpSRaY7xQ">理论</a>(网盘提取码dyc7)：17本彭淏</p>
+<p>更新于2021/3/3 22:22</p>
+</div class="all_content">
 </body>
 </html>
